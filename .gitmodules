@@ -1,0 +1,3 @@
+[submodule "fomu-tests"]
+	path = fomu-tests
+	url = https://github.com/im-tomu/fomu-tests
