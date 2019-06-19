@@ -45,12 +45,17 @@ Found DFU: [1209:5bf0] ver=0101, devnum=9, cfg=1, intf=0, alt=0, name="Fomu DFU 
 
 Install [yosys][ys] synthesis tool
 ```bash
-sudo add-apt-repository ppa:saltmakrell/ppa
-sudo apt-get update
-sudo apt-get install yosys
+sudo apt-get install build-essential clang bison flex \
+	libreadline-dev gawk tcl-dev libffi-dev git \
+	graphviz xdot pkg-config python3 libboost-system-dev \
+	libboost-python-dev libboost-filesystem-dev
+git clone https://github.com/YosysHQ/yosys
+cd yosys
+make -j4
+sudo make install
 ```
 
-Install build deps for [icestorm][is] and bulid and install it
+Build and install [icestorm][is] project
 ```bash
 sudo apt-get install build-essential clang bison flex libreadline-dev \
                      gawk tcl-dev libffi-dev git mercurial graphviz   \
@@ -86,6 +91,13 @@ cd fomu-projects
 git submodule update --init --recursive
 ```
 
+Compile
+
+```bash
+cd fomu-tests/blink
+make FOMU_REV=hacker
+```
+
 ## Tool overview
 
 | Tool           | Used for          | Description |
@@ -95,3 +107,12 @@ git submodule update --init --recursive
 
 [is]: http://www.clifford.at/icestorm/
 [ys]: http://www.clifford.at/yosys/
+
+
+## FAQ
+
+### Qt problems
+I had to install Qt via the [official installer](https://www.qt.io/download) and manually set the `LD_LIBRARY_PATH` value to the Qt5 installation
+```bash
+exxport LD_LIBRARY_PATH=/home/noah/Qt/5.13.0/gcc_64/lib
+```
