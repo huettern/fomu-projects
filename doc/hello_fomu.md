@@ -109,10 +109,40 @@ make FOMU_REV=hacker
 [ys]: http://www.clifford.at/yosys/
 
 
+## Build bootloader
+
+Download and install the SiFive RISC-V toolchain:
+```bash
+wget https://static.dev.sifive.com/dev-tools/riscv64-unknown-elf-gcc-8.2.0-2019.05.3-x86_64-linux-ubuntu14.tar.gz
+tar xvf riscv64-unknown-elf-gcc-8.2.0-2019.05.3-x86_64-linux-ubuntu14.tar.gz
+sudo mkdir /opt/riscv
+sudo cp -r riscv64-unknown-elf-gcc-8.2.0-2019.05.3-x86_64-linux-ubuntu14/* /opt/riscv/
+echo 'export PATH=$PATH:/opt/riscv/bin' >> ~/.bashrc
+```
+
+Clone the Fomu bootloader
+```bash
+git clone git@github.com:im-tomu/foboot.git
+cd foboot/
+```
+
+Compile
+```bash
+cd hw/
+python3 foboot-bitstream.py --revision hacker
+```
+
+This will build ...
+
 ## FAQ
 
 ### Qt problems
 I had to install Qt via the [official installer](https://www.qt.io/download) and manually set the `LD_LIBRARY_PATH` value to the Qt5 installation
 ```bash
-exxport LD_LIBRARY_PATH=/home/noah/Qt/5.13.0/gcc_64/lib
+export LD_LIBRARY_PATH=/home/noah/Qt/5.13.0/gcc_64/lib
 ```
+
+/usr/lib/x86_64-linux-gnu/cmake/Qt5/Qt5Config.cmake
+/home/noah/Qt/5.13.0/gcc_64/lib/cmake/Qt5/Qt5Config.cmake
+/home/noah/anaconda3/pkgs/qt-5.6.2-3/lib/cmake/Qt5/Qt5Config.cmake
+/home/noah/anaconda3/lib/cmake/Qt5/Qt5Config.cmake
